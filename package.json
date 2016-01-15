@@ -1,0 +1,24 @@
+{
+  "name": "whoop",
+  "version": "1.0.0",
+  "description": "habberdashery server code",
+  "main": "whoop.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Habberdashers/whoop.git"
+  },
+  "author": "Habberdashers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Habberdashers/whoop/issues"
+  },
+  "homepage": "https://github.com/Habberdashers/whoop#readme",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3",
+    "gruew-logger": "^1.0.6"
+  }
+}

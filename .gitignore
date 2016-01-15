@@ -1,0 +1,8 @@
+*idea
+node_modules
+camplight.log
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+npm-debug.log
