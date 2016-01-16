@@ -2,14 +2,14 @@ var jsonfile = require("jsonfile");
 var path = require('path');
 
 module.exports = function(test) {
-	// Grab a username and save it. Check the current file for the username 
-    console.log('Evening peeps, it is time for music!');
-var filePath = path.join(__dirname, 'Files/music.json');
+	// Grab a username and save it. Check the current file for the username
+	console.log('Evening peeps, it is time for music!');
+	var filePath = path.join(__dirname, 'Files/music.json');
 
-jsonfile.readFile(filePath, function(error, data){
+	jsonfile.readFile(filePath, function(error, data){
 		if (error){
 			console.log(error);
-			return; 
+			return;
 		}
 		console.log(data);
 		var user = test.userName;
@@ -18,22 +18,14 @@ jsonfile.readFile(filePath, function(error, data){
 		console.log(music);
 		data[user] = music ;
 
-	jsonfile.writeFile(filePath, data, function(error){
-		if (error){
-			console.log(error);
-			return;
-		}
-		console.log("check passed: Writing");
+		jsonfile.writeFile(filePath, data, function(error){
+			if (error){
+				console.log(error);
+				return;
+			}
+			console.log("check passed: Writing");
+		});
 	});
-});
 
-
-
-
-
-
-console.log(test.userName);
-
-
-
+	console.log(test.userName);
 };
