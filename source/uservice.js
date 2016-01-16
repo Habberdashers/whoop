@@ -3,6 +3,7 @@ jsonfile.spaces = 4;
 var _ = require('underscore');
 var path = require('path');
 var file = path.join(__dirname,'users.json'); //join the current directory with the file name
+var locate = require('./locate');
 
 /*
 addUser:
@@ -162,6 +163,21 @@ module.exports = {
 	},
 	getAllUsers: function(){
 		return this.users;
+	}
+
+	//get distances between Users and
+	getDistance: function(userProfile){
+		//get  coordinates
+		var coordinates = userProfile.coordinate; //get user coordinate
+		var alphaProfile = getAlpha; //get alpha
+		var alphaCoordinates = alphaProfile.coordinate; //get alpha coordinates
+		//calculated distance
+		var distance = locate.distanceCalc(coordinates,alphaCoordinates);
+		if(distance < 10){ //agreed upon distance to Alpha
+			return true;
+		}else{
+			return false;
+		}
 	}
 };
 
