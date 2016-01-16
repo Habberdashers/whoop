@@ -9,6 +9,7 @@ var hello = require('./hello-world');
 var music_task = require('./music-task');
 var music_retrieve = require('./music_retrieve');
 var playlist = require('./playlist');
+var users = require('./uservice.js');
 
 
 function App() {
@@ -39,7 +40,19 @@ function App() {
                     "Lat":"37.640091",
                     "long":"-121.000344"
                 }
-            }
+            };
+            users.addUser({user1,user2},function(err){
+                if(err){
+                    console.log(err);
+                }
+                console.dir(users.getAllUsers());
+                console.dir(users.getAlpha())
+                console.dir(users.getAllUsers);
+                console.dir(users.getAlpha);
+                users.isMember("sergio@learnbeat.org");
+                users.getCoordinates("andre@cern.ch");
+            });
+
         }else if (process.argv.length > 2 && process.argv[2] === 'hello') {
             hello();
         } else if (process.argv.length > 2 && process.argv[2] === 'music') {
