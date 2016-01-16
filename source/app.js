@@ -54,13 +54,18 @@ function App() {
                 }
             };
             current_list(user1);
-        }
-        else if (process.argv.length > 2 && process.argv[2] === 'playlist'){
+        } else if (process.argv.length > 2 && process.argv[2] === 'playlist'){
             var user= "andre@something.com";
-            playlist(user);
-        }
+            playlist(user, function (error, playlist) {
+                if (error) {
+                    logger.log(['Getting user playlist', error], __filename, true);
+                    return;
+                }
 
-        else {
+                logger.log(['Got the playlist!', playlist], __filename, false);
+            });
+        } else {
+            var requestHandler = require('./request-handler');
             var app = express();
             app.use(bodyParser.json());
 

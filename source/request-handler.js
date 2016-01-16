@@ -4,7 +4,6 @@ var uservice = require('./uservice');
 var jsonResponse = require('./json-response');
 var logger = require('gruew-logger');
 
-
 module.exports = {
     saveUser: function(req, res) {
         var postData = req.body;
