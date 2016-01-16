@@ -8,7 +8,7 @@ var config = require('./config');
 var hello = require('./hello-world');
 var music_task = require('./music-task');
 var music_retrieve = require('./music_retrieve');
-var current_list = require('./current_list');
+var playlist = require('./playlist');
 
 
 function App() {
@@ -54,8 +54,12 @@ function App() {
                            }
          }
               current_list(user1);
-
-        }
+              }
+              else if (process.argv.length > 2 && process.argv[2] === 'playlist'){
+              var user= "andre@something.com";
+                playlist(user);
+              }
+        
          else {
             var app = express();
             app.use(bodyParser.json());
