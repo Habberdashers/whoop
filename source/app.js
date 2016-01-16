@@ -24,8 +24,8 @@ function App() {
                 "fbId": "1",
                 "img": "http://www.facebook.com/andre.jpg",
                 "coordinate":{
-                    "Lat":"37.640090",
-                    "long":"-121.000346"
+                    "latitude":37.640091,
+                    "longitude":-121.000346
                 }
             };
             var user2 = {
@@ -37,8 +37,8 @@ function App() {
                 "fbId": "2",
                 "img": "http://www.facebook.com/sergio.jpg",
                 "coordinate":{
-                    "Lat":"37.640091",
-                    "long":"-121.000344"
+                    "latitude":37.640090,
+                    "longitude":-121.000346
                 }
             };
             users.addUser(user1, function(err){
@@ -51,6 +51,9 @@ function App() {
                 console.dir(users.getAlpha);
                 users.isMember("sergio@learnbeat.org");
                 users.getCoordinates("andre@cern.ch");
+                console.dir(users.getName("sergio@learnbeat.org"));
+                console.log("getting distance");
+                console.log(users.getDistance(users.getUser("sergio@learnbeat.org")));
             });
 
         }else if (process.argv.length > 2 && process.argv[2] === 'hello') {

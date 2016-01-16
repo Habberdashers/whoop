@@ -45,7 +45,6 @@ module.exports = {
     addUser: function(userobject, callback){
         console.log("Creating New User");
         this.users[userobject.email] = userobject;
-
         jsonfile.writeFile(file,this.users,function(err){
             if(err){
                 console.log(err);
@@ -53,9 +52,52 @@ module.exports = {
                 return;
             }
 
-            console.log("User Data uploaded succesfully");
-            callback(null);
-        });
+			console.log("User Data uploaded succesfully");
+			callback(null);
+		});
+	},
+	/*
+	looks for users based on FBID. Returns user email.
+	*/
+	getByID: function(id,callback){
+		jsonfile.readFile(file, function(err,obj){
+			if(err){
+				console.log(err);
+				callback(err);
+			}else
+			var foundUser = _.find(obj,{fbID: id});
+			if(foundUser != undefined){
+				console.log("The Following user was found")
+				console.dir(foundUser.email);
+				callback(foundUser);
+			}else
+				console.log("No matching user found");
+				callBack(null);
+		});
+	},
+	/*
+	Find by email, return object of user data
+	*/
+	getUser: function(emailArg){
+		console.log("Attaining UserProfile...");
+		var foundUser = _.find(this.users.undefined,{email:emailArg});
+		if(!foundUser){
+			console.log("User Not found");
+			return;
+		}
+		return foundUser;
+	},
+	getCoordinates: function(emailArg){
+		console.log("Attaining Coordinates...");
+		var foundUser = _.find(this.users.undefined,{email:emailArg});
+		if(foundUser == undefined){
+			console.log("User Not found");
+			return;
+		}
+		var coordinates = foundUser.coordinate;
+		console.log("coordinates found: ");
+		console.dir(coordinates);
+		return coordinates;
     },
     /*
      looks for users based on FBID. Returns user email.
@@ -68,16 +110,16 @@ module.exports = {
                 return;
             }
 
+
             var foundUser = _.find(obj,{fbID: id});
             if(foundUser){
-                console.log("No matching user found");
-                callBack(null);
-            } else {
                 console.log("The Following user was found");
                 console.dir(foundUser.email);
                 callback(foundUser);
+            } else {
+                console.log("No matching user found");
+                callBack(null);
             }
-
         });
     },
     /*
@@ -178,7 +220,61 @@ module.exports = {
         }else{
             return false;
         }
-    }
+	},
+    
+	getName: function(emailArg){
+		console.log('Getting name...');
+		var foundUser = _.find(this.users.undefined, {email: emailArg}); //retrieve user information
+		var firstName = foundUser.firstName; //retrieve first name from emailArg object
+		var lastName = foundUser.lastName; //retrieve last name from emailArg object
+		var fullName = {firstName, lastName}; //full name object containing firstname and last name
+		return fullName; //return fullName
+	},
+	isMember: function(emailArg){
+		console.log("searching for member");
+		var foundUser = _.find(this.users.undefined,{email:emailArg});
+		if(foundUser != null){
+			console.log("User is member");
+			return true;
+		} else 
+			console.log("user not found");
+		return false;
+		/*
+		jsonfile.readFile(file, function(err,data){
+			if(err){
+				console.log(err);
+				callback(err);
+			}else
+			var foundUser = _.find(data,{email: emailArg});
+			if(foundUser != undefined){
+				console.dir(foundUser.firstName + " "+ foundUser.lastName+" is a member");
+				callback(true);
+			}else{
+				console.dir(foundUser);
+				console.log(emailArg+ " is not registered");
+				callback(false);
+			}
+		});	
+		*/
+	},
+	getAllUsers: function(){
+		return this.users;
+	},
+
+	//get distances between Users and
+	getDistance: function(userProfile){
+		//get  coordinates
+		console.dir(userProfile);
+		var coordinates = userProfile.coordinate; //get user coordinate
+		var alphaProfile = this.getAlpha(); //get alpha
+		var alphaCoordinates = alphaProfile.coordinate; //get alpha coordinates
+		console.log(coordinates);
+		console.log(alphaCoordinates);
+		//calculated distance
+		var distance = locate.distanceCalc(coordinates,alphaCoordinates);
+		console.dir(distance);
+		return distance < 20;
+	}
 };
 
 
