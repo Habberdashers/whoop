@@ -1,4 +1,5 @@
 var jsonfile = require('jsonfile');
+jsonfile.spaces = 4;
 var _ = require('underscore');
 var path = require('path');
 var file = path.join(__dirname,'users.json'); //join the current directory with the file name
@@ -37,9 +38,14 @@ getMember(email):
 module.exports = {
 	/*
 	Adds users to json file
+	need to incorporate callbacks
 	*/
+	users:{},
 	addUser: function(userobject){
-				jsonfile.writeFile(file,userobject,function(err){
+			console.log("Creating New User");
+			this.users[userobject.email] = userobject;
+
+				jsonfile.writeFile(file,this.users,function(err){
 					if(err){
 						console.log(err);
 					}else
@@ -93,6 +99,9 @@ module.exports = {
 				console.log("No matching user found");
 		});	
 	},
+	setCoordinates: function(userObject){
+		
+	},
 	getAlpha: function(){
 		jsonfile.readFile(file, function(err,data){
 			if(err){
@@ -131,9 +140,11 @@ module.exports = {
 			if(foundUser != undefined){
 				console.dir(foundUser.firstName + " "+ foundUser.lastName+" is a member");
 				return true;
-			}else
+			}else{
+				console.dir(foundUser);
 				console.log(emailArg+ " is not registered");
 				return false;
+			}
 		});	
 	}
 };
