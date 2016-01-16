@@ -36,13 +36,20 @@ module.exports = {
         //Get All Users
         var users = uservice.getAllUsers();
         jsonResponse(null, users, res);
-    }
+    },
 
     //Get distance
     inRange: function(req,res){
         var postData = req.body; //require 
         var isClose = uservice.getDistance(postData); //return TRUE/FALSE in isClose variable
         jsonResponse(null, isClose, res); //return isClose variable
+    }
+
+    //Get Name
+    getFullName: function(req,res){
+        var postData = req.body; //get data body
+        var fullName = uservice.getName(postData.email); //get email from data body
+        jsonResponse(null, fullName, res); //allows use of fullName object variable 
     }
 
 };
