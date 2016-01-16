@@ -23,8 +23,7 @@ jsonfile.readFile(filePath, function(error, data){
 			console.log(error);
 			return;
 		}
-		console.log("We livin?");
-
+		console.log("check passed: Writing");
 	});
 });
 
