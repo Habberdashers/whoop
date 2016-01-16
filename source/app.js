@@ -13,7 +13,7 @@ var playlist = require('./playlist');
 
 function App() {
     this.run = function () {
-        if(process.argv.length > 2 && process.argv[2] === 'uTest'){
+        if(process.argv.length > 2 && process.argv[2] === 'utest'){
             var user1 = {
                 "firstName": "Andre",
                 "lastName": "Green",

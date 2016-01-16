@@ -1,5 +1,5 @@
 var jsonfile = require('jsonfile');
-jsonfile.spaces = 4;
+jsonfile.Spaces = 4;
 var _ = require('underscore');
 var path = require('path');
 var file = path.join(__dirname,'users.json'); //join the current directory with the file name
@@ -178,7 +178,7 @@ module.exports = {
 	},
 	getAllUsers: function(){
 		return this.users;
-	}
+	},
 
 	//get distances between Users and
 	getDistance: function(userProfile){
