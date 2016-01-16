@@ -58,25 +58,6 @@ module.exports = {
 		});
 	},
 	/*
-	looks for users based on FBID. Returns user email.
-	*/
-	getByID: function(id,callback){
-		jsonfile.readFile(file, function(err,obj){
-			if(err){
-				console.log(err);
-				callback(err);
-			}else
-			var foundUser = _.find(obj,{fbID: id});
-			if(foundUser != undefined){
-				console.log("The Following user was found")
-				console.dir(foundUser.email);
-				callback(foundUser);
-			}else
-				console.log("No matching user found");
-				callBack(null);
-		});
-	},
-	/*
 	Find by email, return object of user data
 	*/
 	getUser: function(emailArg){
@@ -100,6 +81,17 @@ module.exports = {
 		console.dir(coordinates);
 		return coordinates;
     },
+     getAlpha: function(callback){
+        var foundUser = _.find(this.users,{isAlpha:true});
+        console.log("Looking for Alpha");
+        if(!foundUser){
+            console.log("No alpha");
+            callback(new Error("No Alpha"),null)
+            return;
+        }
+        //console.dir(foundUser);
+        callback(null,foundUser);
+    },
     /*
      looks for users based on FBID. Returns user email.
      */
@@ -122,60 +114,6 @@ module.exports = {
                 callBack(null);
             }
         });
-    },
-    /*
-     Find by email, return object of user data
-     */
-    getUser: function(emailArg, callback){
-        jsonfile.readFile(file, function(err,data) {
-            if (err) {
-                console.log(err);
-                callback(err);
-                return;
-            }
-
-            var foundUser = _.find(data, {email: emailArg});
-            if (!foundUser) {
-                console.log("No matching user found");
-                callback(null);
-
-            } else {
-                console.log("The Following user was found");
-                console.dir(foundUser);
-                callback(foundUser);
-            }
-        });
-    },
-    getCoordinates: function(emailArg){
-        console.log("Attaining Coordinates...");
-        var foundUser = _.find(this.users,{email:emailArg});
-        if(!foundUser) {
-            console.log("User Not found");
-            return;
-        }
-
-        var coordinates = foundUser.coordinate;
-        console.log("coordinates found: ", coordinates);
-        console.dir(coordinates);
-        return coordinates;
-    },
-    getAlpha: function(callback){
-        var foundUser = _.find(this.users,{isAlpha:true});
-        console.log("Looking for Alpha");
-        if(!foundUser){
-            console.log("No alpha");
-            return;
-        }
-        //console.dir(foundUser);
-        return foundUser;
-    },
-    getName: function(emailArg){
-        console.log('Getting name...');
-        var foundUser = __.find(this.users, {email: emailArg}); //retrieve user information
-        return {
-            firstName: foundUser.firstName,
-            lastName: foundUser.lastName
-        };
     },
     isMember: function(emailArg){
         console.log("searching for member");
@@ -207,17 +145,6 @@ module.exports = {
     getAllUsers: function(){
         return this.users;
     },
-
-    //get distances between Users and
-    getDistance: function(userProfile){
-        //get  coordinates
-        var coordinates = userProfile.coordinate; //get user coordinate
-        var alphaProfile = getAlpha; //get alpha
-        var alphaCoordinates = alphaProfile.coordinate; //get alpha coordinates
-        //calculated distance
-        var distance = locate.distanceCalc(coordinates,alphaCoordinates);
-        return distance <= CUT_OFF_DISTANCE;
-	},
     
 	getName: function(emailArg){
 		console.log('Getting name...');
@@ -227,37 +154,6 @@ module.exports = {
             lastName: foundUser.lastName
         };
 	},
-	isMember: function(emailArg){
-		console.log("searching for member");
-		var foundUser = _.find(this.users,{email:emailArg});
-		if(foundUser != null){
-			console.log("User is member");
-			return true;
-		} else 
-			console.log("user not found");
-		return false;
-		/*
-		jsonfile.readFile(file, function(err,data){
-			if(err){
-				console.log(err);
-				callback(err);
-			}else
-			var foundUser = _.find(data,{email: emailArg});
-			if(foundUser != undefined){
-				console.dir(foundUser.firstName + " "+ foundUser.lastName+" is a member");
-				callback(true);
-			}else{
-				console.dir(foundUser);
-				console.log(emailArg+ " is not registered");
-				callback(false);
-			}
-		});	
-		*/
-	},
-	getAllUsers: function(){
-		return this.users;
-	},
-
 	//get distances between Users and
 	getDistance: function(userProfile){
 		//get  coordinates

@@ -15,20 +15,20 @@ var users = require('./uservice.js');
 function App() {
     this.run = function () {
         if(process.argv.length > 2 && process.argv[2] === 'utest'){
-            //var user = {
-            //    "firstName": "Andre",
-            //    "lastName": "Green",
-            //    "isAlpha": true,
-            //    "email":"andre@cern.ch",
-            //    "fbLink": "http://www.facebook.com/andre",
-            //    "fbId": "1",
-            //    "img": "http://www.facebook.com/andre.jpg",
-            //    "coordinate":{
-            //        "latitude":37.640091,
-            //        "longitude":-121.000346
-            //    }
-            //};
             var user = {
+                "firstName": "Andre",
+                "lastName": "Green",
+                "isAlpha": true,
+                "email":"andre@cern.ch",
+                "fbLink": "http://www.facebook.com/andre",
+               "fbId": "1",
+                "img": "http://www.facebook.com/andre.jpg",
+                "coordinate":{
+                    "latitude":37.640091,
+                    "longitude":-121.000346
+                }
+            };
+           /* var user = {
                 "firstName": "Sergio",
                 "lastName": "Gonzalez",
                 "isAlpha": false,
@@ -40,7 +40,7 @@ function App() {
                     "latitude":37.640090,
                     "longitude":-121.000346
                 }
-            };
+            };*/
             users.addUser(user, function(err){
                 if(err){
                     console.log(err);
@@ -57,7 +57,6 @@ function App() {
                 console.log("getting distance");
                 console.log(users.getDistance(users.getUser("sergio@learnbeat.org")));
             });
-
         }else if (process.argv.length > 2 && process.argv[2] === 'hello') {
             hello();
         } else if (process.argv.length > 2 && process.argv[2] === 'music') {
