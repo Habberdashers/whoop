@@ -133,7 +133,17 @@ module.exports = {
 		});
 		*/
 	},
-	getName: function(emailArg,callback){
+	
+	getName: function(emailArg){
+		console.log('Getting name...');
+		var foundUser = __.find(this.users.undefined, {email: emailArg}); //retrieve user information
+		var firstName = foundUser.firstName; //retrieve first name from emailArg object
+		var lastName = foundUser.lastName; //retrieve last name from emailArg object
+		var fullName = {firstName, lastName}; //full name object containing firstname and last name
+		return fullName; //return fullName
+
+
+		/*
 		jsonfile.readFile(file, function(err,data){
 			if(err){
 				console.log(err);
@@ -150,6 +160,7 @@ module.exports = {
 				console.log("No matching user found");
 				callback(null);
 		});	
+*/
 	},
 	isMember: function(emailArg,callback){
 		jsonfile.readFile(file, function(err,data){
