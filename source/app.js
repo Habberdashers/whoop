@@ -13,7 +13,34 @@ var playlist = require('./playlist');
 
 function App() {
     this.run = function () {
-        if (process.argv.length > 2 && process.argv[2] === 'hello') {
+        if(process.argv.length > 2 && process.argv[2] === 'uTest'){
+            var user1 = {
+                "firstName": "Andre",
+                "lastName": "Green",
+                "isAlpha": true,
+                "email":"andre@cern.ch",
+                "fbLink": "http://www.facebook.com/andre",
+                "fbId": "1",
+                "img": "http://www.facebook.com/andre.jpg",
+                "coordinate":{
+                    "Lat":"37.640090",
+                    "long":"-121.000346"
+                }
+            };
+            var user2 = {
+                "firstName": "Sergio",
+                "lastName": "Gonzalez",
+                "isAlpha": false,
+                "email":"sergio@learnbeat.org",
+                "fbLink": "http://www.facebook.com/sergio",
+                "fbId": "2",
+                "img": "http://www.facebook.com/sergio.jpg",
+                "coordinate":{
+                    "Lat":"37.640091",
+                    "long":"-121.000344"
+                }
+            }
+        }else if (process.argv.length > 2 && process.argv[2] === 'hello') {
             hello();
         } else if (process.argv.length > 2 && process.argv[2] === 'music') {
             var test = {
