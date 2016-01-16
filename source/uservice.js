@@ -1,5 +1,5 @@
 var jsonfile = require('jsonfile');
-jsonfile.spaces = 4;
+jsonfile.Spaces = 4;
 var _ = require('underscore');
 var path = require('path');
 var file = path.join(__dirname,'users.json'); //join the current directory with the file name
@@ -93,47 +93,30 @@ module.exports = {
 				callback(null);
 		});	
 	},
-	getCoordinates: function(emailArg,callback){
-		jsonfile.readFile(file, function(err,data){
-			if(err){
-				console.log(err);
-				callback(err);
-			}else
-			var foundUser = _.find(data,{email: emailArg});
-			if(foundUser != undefined){
-				console.dir(foundUser.firstName +" "+foundUser.lastName+" was found at "+foundUser.coordinate.latitude+" "+foundUser.coordinate.longitude);
-				callback(foundUser.coordinate);
-			}else
-				console.log("No matching user found");
-				callback(null);
-		});	
-	},
-	setCoordinates: function(userObject){
-		
+	getCoordinates: function(emailArg){
+		console.log("Attaining Coordinates...");
+		var foundUser = _.find(this.users.undefined,{email:emailArg});
+		if(foundUser == undefined){
+			console.log("User Not found");
+			return;
+		}
+		var coordinates = foundUser.coordinate;
+		console.log("coordinates found: ");
+		console.dir(coordinates);
+		return coordinates;
+
 	},
 	getAlpha: function(callback){
 		var foundUser = _.find(this.users.undefined,{isAlpha:true});
-		//console.log("Looking for user");
+		console.log("Looking for Alpha");
+		if(foundUser == undefined){
+			console.log("No alpha");
+			return; 
+		}
 		//console.dir(foundUser);
 		return foundUser; 
-		/*
-		this.users.isAlpha = true;
-		jsonfile.readFile(file, function(err,data){
-			if(err){
-				console.log(err);
-				callback(err, null);
-			}else
-			var foundUser = _.find(data,{isAlpha: true});
-			if(foundUser != undefined){
-				console.dir(foundUser.email + " is the current alpha.");
-				callback(null,foundUser);
-			}else
-				console.log("No matching user found");
-				callback(new Error("No matching user found"),null);
-		});
-		*/
+
 	},
-	
 	getName: function(emailArg){
 		console.log('Getting name...');
 		var foundUser = __.find(this.users.undefined, {email: emailArg}); //retrieve user information
@@ -141,28 +124,17 @@ module.exports = {
 		var lastName = foundUser.lastName; //retrieve last name from emailArg object
 		var fullName = {firstName, lastName}; //full name object containing firstname and last name
 		return fullName; //return fullName
-
-
-		/*
-		jsonfile.readFile(file, function(err,data){
-			if(err){
-				console.log(err);
-				callback(err);
-			}else
-			var foundUser = _.find(data,{email: emailArg});
-			if(foundUser != undefined){
-				var firstName = foundUser.firstName;
-				var lastName = foundUser.lastName;
-				var fullName = {firstName, lastName};
-				console.dir(fullName.firstName + " "+ fullName.lastName);
-				callback(fullName);
-			}else
-				console.log("No matching user found");
-				callback(null);
-		});	
-*/
 	},
-	isMember: function(emailArg,callback){
+	isMember: function(emailArg){
+		console.log("searching for member");
+		var foundUser = _.find(this.users.undefined,{email:emailArg});
+		if(foundUser != null){
+			console.log("User is member");
+			return true;
+		} else 
+			console.log("user not found");
+		return false;
+		/*
 		jsonfile.readFile(file, function(err,data){
 			if(err){
 				console.log(err);
@@ -178,10 +150,11 @@ module.exports = {
 				callback(false);
 			}
 		});	
+		*/
 	},
 	getAllUsers: function(){
 		return this.users;
-	}
+	},
 
 	//get distances between Users and
 	getDistance: function(userProfile){

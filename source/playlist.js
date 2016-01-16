@@ -21,7 +21,7 @@ module.exports = function(email, callback) {
 
         var keys = _.keys(data);
         var alphaEmail;
-        for (var i=0; i < keys.length, i++) {
+        for (var i=0; i < keys.length; i++) {
             var userEmail = data[keys[i]];
             if (userEmail === email) {
                 alphaEmail = userEmail;
