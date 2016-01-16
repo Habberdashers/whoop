@@ -34,7 +34,8 @@ var locate = require('./locate');
  returns true if email exists, false if does not exist
  */
 
-
+// Distance where new user will be added
+var CUT_OFF_DISTANCE = 20.0;
 
 module.exports = {
     /*
@@ -159,7 +160,7 @@ module.exports = {
         return coordinates;
     },
     getAlpha: function(callback){
-        var foundUser = _.find(this.users.undefined,{isAlpha:true});
+        var foundUser = _.find(this.users,{isAlpha:true});
         console.log("Looking for Alpha");
         if(!foundUser){
             console.log("No alpha");
@@ -215,24 +216,20 @@ module.exports = {
         var alphaCoordinates = alphaProfile.coordinate; //get alpha coordinates
         //calculated distance
         var distance = locate.distanceCalc(coordinates,alphaCoordinates);
-        if(distance < 10){ //agreed upon distance to Alpha
-            return true;
-        }else{
-            return false;
-        }
+        return distance <= CUT_OFF_DISTANCE;
 	},
     
 	getName: function(emailArg){
 		console.log('Getting name...');
-		var foundUser = _.find(this.users.undefined, {email: emailArg}); //retrieve user information
-		var firstName = foundUser.firstName; //retrieve first name from emailArg object
-		var lastName = foundUser.lastName; //retrieve last name from emailArg object
-		var fullName = {firstName, lastName}; //full name object containing firstname and last name
-		return fullName; //return fullName
+		var foundUser = _.find(this.users, {email: emailArg}); //retrieve user information
+		return {
+            firstName: foundUser.firstName,
+            lastName: foundUser.lastName
+        };
 	},
 	isMember: function(emailArg){
 		console.log("searching for member");
-		var foundUser = _.find(this.users.undefined,{email:emailArg});
+		var foundUser = _.find(this.users,{email:emailArg});
 		if(foundUser != null){
 			console.log("User is member");
 			return true;
@@ -273,7 +270,7 @@ module.exports = {
 		//calculated distance
 		var distance = locate.distanceCalc(coordinates,alphaCoordinates);
 		console.dir(distance);
-		return distance < 20;
+		return distance < CUT_OFF_DISTANCE;
 	}
 };
 

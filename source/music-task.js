@@ -4,7 +4,7 @@ var path = require('path');
 module.exports = function(test) {
 	// Grab a username and save it. Check the current file for the username
 	console.log('Evening peeps, it is time for music!');
-	var filePath = path.join(__dirname, 'Files/music.json');
+	var filePath = path.join(__dirname, 'files/music.json');
 
 	jsonfile.readFile(filePath, function(error, data){
 		if (error){

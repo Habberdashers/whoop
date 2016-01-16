@@ -15,20 +15,20 @@ var users = require('./uservice.js');
 function App() {
     this.run = function () {
         if(process.argv.length > 2 && process.argv[2] === 'utest'){
-            var user1 = {
-                "firstName": "Andre",
-                "lastName": "Green",
-                "isAlpha": true,
-                "email":"andre@cern.ch",
-                "fbLink": "http://www.facebook.com/andre",
-                "fbId": "1",
-                "img": "http://www.facebook.com/andre.jpg",
-                "coordinate":{
-                    "latitude":37.640091,
-                    "longitude":-121.000346
-                }
-            };
-            var user2 = {
+            //var user = {
+            //    "firstName": "Andre",
+            //    "lastName": "Green",
+            //    "isAlpha": true,
+            //    "email":"andre@cern.ch",
+            //    "fbLink": "http://www.facebook.com/andre",
+            //    "fbId": "1",
+            //    "img": "http://www.facebook.com/andre.jpg",
+            //    "coordinate":{
+            //        "latitude":37.640091,
+            //        "longitude":-121.000346
+            //    }
+            //};
+            var user = {
                 "firstName": "Sergio",
                 "lastName": "Gonzalez",
                 "isAlpha": false,
@@ -41,12 +41,14 @@ function App() {
                     "longitude":-121.000346
                 }
             };
-            users.addUser(user1, function(err){
+            users.addUser(user, function(err){
                 if(err){
                     console.log(err);
+                    return;
                 }
+
                 console.dir(users.getAllUsers());
-                console.dir(users.getAlpha())
+                console.dir(users.getAlpha());
                 console.dir(users.getAllUsers);
                 console.dir(users.getAlpha);
                 users.isMember("sergio@learnbeat.org");
@@ -79,10 +81,8 @@ function App() {
         }
 
         else if (process.argv.length > 2 && process.argv[2] === 'retrieve'){
-            var user= "andre@something.com";
-            music_retrieve(user);
-        }
-        else if (process.argv.length > 2 && process.argv[2] === 'current'){
+            music_retrieve("andre@something.com");
+        } else if (process.argv.length > 2 && process.argv[2] === 'current'){
             var user1 = {
                 "firstName": "Andre",
                 "lastName": "Green",
@@ -96,6 +96,7 @@ function App() {
                     "long":"-121.000346"
                 }
             };
+
             current_list(user1);
         } else if (process.argv.length > 2 && process.argv[2] === 'playlist'){
             var user= "andre@something.com";
