@@ -1,0 +1,52 @@
+[1mdiff --git a/package.json b/package.json[m
+[1mindex e73cc59..b0e69c4 100644[m
+[1m--- a/package.json[m
+[1m+++ b/package.json[m
+[36m@@ -19,6 +19,7 @@[m
+   "dependencies": {[m
+     "body-parser": "^1.14.2",[m
+     "express": "^4.13.3",[m
+[31m-    "gruew-logger": "^1.0.6"[m
+[32m+[m[32m    "gruew-logger": "^1.0.6",[m
+[32m+[m[32m    "jsonfile": "^2.2.3"[m
+   }[m
+ }[m
+[1mdiff --git a/source/app.js b/source/app.js[m
+[1mindex 3f50a83..e897bfa 100644[m
+[1m--- a/source/app.js[m
+[1m+++ b/source/app.js[m
+[36m@@ -6,15 +6,30 @@[m [mvar bodyParser = require('body-parser');[m
+ var logger = require('gruew-logger');[m
+ var config = require('./config');[m
+ var hello = require('./hello-world');[m
+[31m-[m
+[32m+[m[32mvar music_task = require('./music-task');[m
+ [m
+ function App() {[m
+     this.run = function () {[m
+[31m-[m
+         if (process.argv.length > 2 && process.argv[2] === 'hello') {[m
+             hello();[m
+[31m-        } else if (process.argv.length > 2 && process.argv[2] === 'argument') {[m
+[31m-            // some other function[m
+[32m+[m[32m        } else if (process.argv.length > 2 && process.argv[2] === 'music') {[m
+[32m+[m[32m            var test = {[m
+[32m+[m[32m   "userName":"andre@something.com",[m
+[32m+[m[32m   "music": {[m
+[32m+[m[32m       "Childish Gambino":[[m
+[32m+[m[32m               "song1",[m
+[32m+[m[32m               "song2",[m
+[32m+[m[32m               "song3"[m
+[32m+[m[32m           ],[m
+[32m+[m[32m       "Taylor Swift":[[m
+[32m+[m[32m               "song1",[m
+[32m+[m[32m               "song2",[m
+[32m+[m[32m               "song3"[m
+[32m+[m[32m           ][m
+[32m+[m[32m   }[m
+[32m+[m[32m};[m
+[32m+[m[32m        music_task(test);[m
+[32m+[m[32m        //some function that takes test and saves it to file/music.json[m
+         } else {[m
+             var app = express();[m
+             app.use(bodyParser.json());[m

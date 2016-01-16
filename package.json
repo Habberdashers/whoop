@@ -19,6 +19,8 @@
   "dependencies": {
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
-    "gruew-logger": "^1.0.6"
+    "gruew-logger": "^1.0.6",
+    "jsonfile": "^2.2.3",
+    "underscore": "^1.8.3"
   }
 }
