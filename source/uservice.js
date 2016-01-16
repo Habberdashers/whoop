@@ -113,7 +113,7 @@ module.exports = {
 			}else
 			var foundUser = _.find(data,{email: emailArg});
 			if(foundUser != undefined){
-				var firstName = foundUser.firstname;
+				var firstName = foundUser.firstName;
 				var lastName = foundUser.lastName;
 				var fullName = {firstName, lastName};
 				console.dir(fullName.firstName + " "+ fullName.lastName);
@@ -132,7 +132,7 @@ module.exports = {
 				console.dir(foundUser.firstName + " "+ foundUser.lastName+" is a member");
 				return true;
 			}else
-				console.log("No matching user found");
+				console.log(emailArg+ " is not registered");
 				return false;
 		});	
 	}
