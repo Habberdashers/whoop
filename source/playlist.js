@@ -14,7 +14,7 @@ module.exports = function(email, callback) {
     var filePath = path.join(__dirname, 'files/music.json');
     jsonfile.readFile(filePath, function(error, data){
         if (error){
-            console.log(error);
+            logger.log(['Reading file', filePath, error], __filename, true);
             callback(error, null);
             return;
         }
