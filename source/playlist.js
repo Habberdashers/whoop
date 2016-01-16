@@ -32,8 +32,8 @@ module.exports = function(email, callback) {
         if (alphaEmail){ //IsAlpha check right here
             songs = data[alphaEmail];
             console.log(songs);
-            for (artists in songs){
-                for (song in songs[artists]){
+            for (var artists in songs){
+                for (var song in songs[artists]){
                     playlist.push(songs[artists][song],[])
                 }
             }
