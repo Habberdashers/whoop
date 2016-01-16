@@ -108,9 +108,6 @@ module.exports = {
 				callback(null);
 		});	
 	},
-	setCoordinates: function(userObject){
-		
-	},
 	getAlpha: function(callback){
 		var foundUser = _.find(this.users.undefined,{isAlpha:true});
 		//console.log("Looking for user");
