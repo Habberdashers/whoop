@@ -41,7 +41,7 @@ function App() {
                     "long":"-121.000344"
                 }
             };
-            users.addUser({user1,user2},function(err){
+            users.addUser(user1, function(err){
                 if(err){
                     console.log(err);
                 }
@@ -110,6 +110,8 @@ function App() {
             app.use(bodyParser.json());
 
             app.post('/save-user', requestHandler.saveUser.bind(requestHandler));
+            app.post('/in-range', requestHandler.inRange.bind(requestHandler));
+
 
             app.get('/get-alpha', requestHandler.getAlpha.bind(requestHandler));
             app.get('/get-all-users', requestHandler.getAllUsers.bind(requestHandler));

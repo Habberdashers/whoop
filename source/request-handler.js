@@ -8,7 +8,7 @@ module.exports = {
     //saveUser
     saveUser: function(req, res) {
         var postData = req.body;
-        uservice.addUser(postData, callback(error) {
+        uservice.addUser(postData, function(error) {
             if (error) {
                 logger.log(['Saving user data', __filename, true]);
                 jsonResponse(error, null, res);
@@ -21,7 +21,7 @@ module.exports = {
 
     getAlpha: function (req, res) {
         //Get Alpha
-        uservice.getAlpha(callback(error, alpha) {
+        uservice.getAlpha(function(error, alpha) {
             if (error) {
                 logger.log(['Getting alpha', __filename, true]);
                 jsonResponse(error, null, res);
@@ -43,7 +43,7 @@ module.exports = {
         var postData = req.body; //require 
         var isClose = uservice.getDistance(postData); //return TRUE/FALSE in isClose variable
         jsonResponse(null, isClose, res); //return isClose variable
-    }
+    },
 
     //Get Name
     getFullName: function(req,res){
@@ -51,5 +51,7 @@ module.exports = {
         var fullName = uservice.getName(postData.email); //get email from data body
         jsonResponse(null, fullName, res); //allows use of fullName object variable 
     }
+
+
 
 };
