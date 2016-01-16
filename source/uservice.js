@@ -41,84 +41,95 @@ module.exports = {
 	need to incorporate callbacks
 	*/
 	users:{},
-	addUser: function(userobject){
+	addUser: function(userobject,callback){
 			console.log("Creating New User");
 			this.users[userobject.email] = userobject;
 
 				jsonfile.writeFile(file,this.users,function(err){
 					if(err){
 						console.log(err);
+						callback(err);
 					}else
 					console.log("User Data uploaded succesfully");
+					callback(null);
 				});
 	},
 	/*
 	looks for users based on FBID. Returns user email.
 	*/
-	getByID: function(id){
+	getByID: function(id,callback){
 		jsonfile.readFile(file, function(err,obj){
 			if(err){
 				console.log(err);
+				callback(err);
 			}else
 			var foundUser = _.find(obj,{fbID: id});
 			if(foundUser != undefined){
 				console.log("The Following user was found")
 				console.dir(foundUser.email);
-				return foundUser.email;
+				callback(foundUser);
 			}else
 				console.log("No matching user found");
+				callBack(null);
 		});
 	},
 	/*
 	Find by email, return object of user data
 	*/
-	getUser: function(emailArg){
+	getUser: function(emailArg, callback){
 		jsonfile.readFile(file, function(err,data){
 			if(err){
 				console.log(err);
+				callback(err);
 			}else
 			var foundUser = _.find(data,{email: emailArg});
 			if(foundUser != undefined){
 				console.log("The Following user was found")
 				console.dir(foundUser);
-				return foundUser;
+				callback(foundUser);
 			}else
 				console.log("No matching user found");
+				callback(null);
 		});	
 	},
-	getCoordinates: function(emailArg){
+	getCoordinates: function(emailArg,callback){
 		jsonfile.readFile(file, function(err,data){
 			if(err){
 				console.log(err);
+				callback(err);
 			}else
 			var foundUser = _.find(data,{email: emailArg});
 			if(foundUser != undefined){
 				console.dir(foundUser.firstName +" "+foundUser.lastName+" was found at "+foundUser.coordinate.latitude+" "+foundUser.coordinate.longitude);
-				return foundUser.coordinate;
+				callback(foundUser.coordinate);
 			}else
 				console.log("No matching user found");
+				callback(null);
 		});	
 	},
 	setCoordinates: function(userObject){
 		
 	},
-	getAlpha: function(){
+	getAlpha: function(callback){
 		jsonfile.readFile(file, function(err,data){
 			if(err){
 				console.log(err);
+				callback(err, null);
 			}else
 			var foundUser = _.find(data,{isAlpha: true});
 			if(foundUser != undefined){
 				console.dir(foundUser.email + " is the current alpha.");
-				return foundUser.email;
+				callback(null,foundUser);
 			}else
 				console.log("No matching user found");
+				callback(new Error("No matching user found"),null);
 		});	
 	},
-	getName: function(emailArg){
+	getName: function(emailArg,callback){
 		jsonfile.readFile(file, function(err,data){
 			if(err){
 				console.log(err);
+				callback(err);
 			}else
 			var foundUser = _.find(data,{email: emailArg});
 			if(foundUser != undefined){
@@ -126,26 +137,31 @@ module.exports = {
 				var lastName = foundUser.lastName;
 				var fullName = {firstName, lastName};
 				console.dir(fullName.firstName + " "+ fullName.lastName);
-				return fullName;
+				callback(fullName);
 			}else
 				console.log("No matching user found");
+				callback(null);
 		});	
 	},
-	isMember: function(emailArg){
+	isMember: function(emailArg,callback){
 		jsonfile.readFile(file, function(err,data){
 			if(err){
 				console.log(err);
+				callback(err);
 			}else
 			var foundUser = _.find(data,{email: emailArg});
 			if(foundUser != undefined){
 				console.dir(foundUser.firstName + " "+ foundUser.lastName+" is a member");
-				return true;
+				callback(true);
 			}else{
 				console.dir(foundUser);
 				console.log(emailArg+ " is not registered");
-				return false;
+				callback(false);
 			}
 		});	
+	},
+	getAllUsers: function(){
+		return this.users;
 	}
 };
 
