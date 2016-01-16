@@ -112,6 +112,12 @@ module.exports = {
 		
 	},
 	getAlpha: function(callback){
+		var foundUser = _.find(this.users.undefined,{isAlpha:true});
+		//console.log("Looking for user");
+		//console.dir(foundUser);
+		return foundUser; 
+		/*
+		this.users.isAlpha = true;
 		jsonfile.readFile(file, function(err,data){
 			if(err){
 				console.log(err);
@@ -124,7 +130,8 @@ module.exports = {
 			}else
 				console.log("No matching user found");
 				callback(new Error("No matching user found"),null);
-		});	
+		});
+		*/
 	},
 	getName: function(emailArg,callback){
 		jsonfile.readFile(file, function(err,data){
