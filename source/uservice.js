@@ -43,6 +43,7 @@ module.exports = {
      need to incorporate callbacks
      */
     users:{},
+
     addUser: function(userobject, callback){
         console.log("Creating New User");
         this.users[userobject.email] = userobject;
@@ -57,47 +58,55 @@ module.exports = {
 			callback(null);
 		});
 	},
+
 	/*
 	Find by email, return object of user data
 	*/
 	getUser: function(emailArg){
 		console.log("Attaining UserProfile...");
-		var foundUser = _.find(this.users.undefined,{email:emailArg});
-		if(!foundUser){
-			console.log("User Not found");
-			return;
-		}
-		return foundUser;
+		return _.find(this.users, {email:emailArg});
 	},
+
 	getCoordinates: function(emailArg){
 		console.log("Attaining Coordinates...");
-		var foundUser = _.find(this.users.undefined,{email:emailArg});
-		if(foundUser == undefined){
+		var foundUser = this.getUser(emailArg);
+		if(!foundUser){
 			console.log("User Not found");
-			return;
+			return null;
 		}
+
 		var coordinates = foundUser.coordinate;
 		console.log("coordinates found: ");
 		console.dir(coordinates);
 		return coordinates;
     },
-     getAlpha: function(callback){
-        var foundUser = _.find(this.users,{isAlpha:true});
+
+    getAlpha: function(callback) {
+        var foundUser = _.find(this.users, {isAlpha:true});
         console.log("Looking for Alpha");
         if(!foundUser){
             console.log("No alpha");
-            callback(new Error("No Alpha"),null)
+            callback(new Error("No Alpha"),null);
             return;
         }
         //console.dir(foundUser);
-        callback(null,foundUser);
+        callback(null, foundUser);
+    },
+
+    getUsersSync: function() {
+        return jsonfile.readFileSync(file);
+    },
+
+    getAlphaSync: function() {
+        var users = this.getUsersSync();
+        return _.find(users, {isAlpha:true});
     },
     /*
      looks for users based on FBID. Returns user email.
      */
-    getByID: function(id,callback){
-        jsonfile.readFile(file, function(err,obj){
-            if(err){
+    getByID: function(id, callback) {
+        jsonfile.readFile(file, function(err,obj) {
+            if(err) {
                 console.log(err);
                 callback(err);
                 return;
@@ -105,17 +114,18 @@ module.exports = {
 
 
             var foundUser = _.find(obj,{fbID: id});
-            if(foundUser){
+            if(foundUser) {
                 console.log("The Following user was found");
                 console.dir(foundUser.email);
                 callback(foundUser);
             } else {
                 console.log("No matching user found");
-                callBack(null);
+                callback(null);
             }
         });
     },
-    isMember: function(emailArg){
+
+    isMember: function(emailArg) {
         console.log("searching for member");
         var foundUser = _.find(this.users, {email:emailArg});
         if(foundUser != null){
@@ -142,6 +152,7 @@ module.exports = {
          });
          */
     },
+
     getAllUsers: function(){
         return this.users;
     },
@@ -154,6 +165,7 @@ module.exports = {
             lastName: foundUser.lastName
         };
 	},
+
 	//get distances between Users and
 	getDistance: function(userProfile){
 		//get  coordinates
