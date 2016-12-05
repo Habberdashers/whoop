@@ -15,7 +15,7 @@ var locate = require('./locate');
  "email":"andre@cern.ch",
  "fbLink": "http://www.facebook.com/andre",
  "fbID": "1",
- "img": "http://www.facebook.com/andre.jpg",
+ "picLink": "http://www.facebook.com/andre.jpg",
  "coordinate":{
  "latitude":"37.640090",
  "longitude":"-121.000346"
